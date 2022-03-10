@@ -5,35 +5,31 @@ from jogodavelha.models.Game import Game
 @app.route("/game", methods = ['POST'])
 def game(): 
   newGame = Game()
-  gameHistory.addGame(newGame)
+  gameHistory.addGame(newGame)  
   return { "id" : newGame.id, "firstPlayer" : newGame.firstPlayer }
 
 @app.route("/game/<string:id>/movement", methods = ['POST'])
 def movement(id):
-
-  xCoordRead = request.form["x"]
-  yCoordRead = request.form["y"]
-  playerRead = request.form["player"]
+  xCoordRead = request.json["position"]["x"]
+  yCoordRead = request.json["position"]["y"]
+  playerRead = request.json["player"]
 
   currentGame = gameHistory.getGameById(id)
   if not currentGame:
     return { "msg" : "Partida não encontrada" }
+  
+  if currentGame.winner:
+    return { "msg" : "Partida finalizada", "winner" : currentGame.winner } 
 
   if not currentGame.checkCurrentPlayerTurn(playerRead):
     return { "msg" : "Não é turno do jogador" }
-
-  currentGame.board.makeTheMovementInBoard(xCoordRead, yCoordRead, playerRead)
-  # print(currentGame.board)
   
-  winner = currentGame.board.checkWinner()
-  if winner:
-    return { "msg" : "Partida finalizada", "winner" : winner }
+  currentGame.board.makeTheMovementInBoard(xCoordRead, yCoordRead, playerRead)
+  currentGame.winner = currentGame.board.checkWinner()
+
+  if currentGame.winner:
+    return { "msg" : "Partida finalizada", "winner" : currentGame.winner }
 
   currentGame.changeTheCurrentPlayer()
-
   return Response(status = 200)
-
-
-# @app.route("/games", methods = ['GET'])
-# def games():   
-#     return json.dumps(gameHistory.getHistory())
+  

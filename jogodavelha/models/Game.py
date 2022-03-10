@@ -15,10 +15,7 @@ class Game():
         return self.currentPlayer == player
 
     def changeTheCurrentPlayer(self):
-        if self.currentPlayer == 'X': 
-            self.currentPlayer = 'O'
+        if self.currentPlayer == players[0]: 
+            self.currentPlayer = players[1]
         else:
-            self.currentPlayer = 'X'
-
-    # def toDict(self):
-    #     return { "id" : str(self.id), "firstPlayer" : self.firstPlayer, "winner" : self.winner }
+            self.currentPlayer = players[0]
