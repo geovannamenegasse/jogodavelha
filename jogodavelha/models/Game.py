@@ -15,7 +15,4 @@ class Game():
         return self.currentPlayer == player
 
     def changeTheCurrentPlayer(self):
-        if self.currentPlayer == players[0]: 
-            self.currentPlayer = players[1]
-        else:
-            self.currentPlayer = players[0]
+        self.currentPlayer = players[1] if self.currentPlayer == players[0] else players[0]
