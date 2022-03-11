@@ -39,6 +39,7 @@ As dependências requeridas estão em ```requirements.txt```, arquivo onde encon
 ### Melhorias
 
 Com mais tempo de desenvolvimento, algumas melhorias poderiam ser aplicadas para garantir maior qualidade de código. Dentre as possíveis melhorias, temos: 
+- implementar testes de unidade;
 - extração das validações e checagens da rota ```movement``` para métodos separados; 
 - separação dos módulos em "blueprints"; 
 - melhoria nos testes automatizados com a inserção de testes de unidade; 
