@@ -25,7 +25,7 @@ def movement(id):
     return { "msg" : "Não é turno do jogador" }
   
   currentGame.board.makeTheMovementInBoard(xCoordinateRead, yCoordinateRead, playerRead)
-  currentGame.winner = currentGame.board.checkWinner()
+  currentGame.winner = currentGame.board.checkIfPlayerWon(currentGame.currentPlayer)
 
   if currentGame.winner:
     return { ("status" if currentGame.winner == "Draw" else "msg") : "Partida finalizada", "winner" : currentGame.winner }

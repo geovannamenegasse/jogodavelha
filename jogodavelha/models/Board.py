@@ -8,40 +8,52 @@ class Board():
   def makeTheMovementInBoard(self, x, y, player):
     self.matrix[self.dimension-(x+1)][y].setPlayerInPosition(player)
   
-  def checkWinner(self):
-    winner = self.checkWinnerDiagonals()  
-    if winner:
-      return winner    
-    winner = self.checkWinnerLines()
-    if winner:
-      return winner    
-    winner = self.checkWinnerColumns()
-    if winner:
-      return winner
-    return self.checkEmptyPositions()
+  def checkIfPlayerWon(self, player):
+    if self.isPlayerDiagonalWinner(player) or self.isPlayerHorizontalWinner(player) or self.isPlayerVerticalWinner(player):
+      return player
+    return self.checkIfDrawWon()
 
-  def checkWinnerDiagonals(self):
-    if self.matrix[0][0].player == self.matrix[1][1].player == self.matrix[2][2].player:
-      return self.matrix[0][0].player
-    if self.matrix[2][0].player == self.matrix[1][1].player == self.matrix[0][2].player:
-      return self.matrix[2][0].player
-    return None
+  def isPlayerDiagonalWinner(self, player):
+    return player == self.getCommonElementInSecDiagonal() or player == self.getCommonElementInPrimDiagonal()
 
-  def checkWinnerLines(self):
-    for row in range(self.dimension):
-      if self.matrix[row][0].player == self.matrix[row][1].player == self.matrix[row][2].player:
-        return self.matrix[row][0].player    
-    return None
+  def isPlayerHorizontalWinner(self, player):
+    for row in self.matrix:
+      if player == self.getCommonElementInList(row):
+        return True    
+    return False
     
-  def checkWinnerColumns(self):
-    for column in range(self.dimension):
-      if self.matrix[0][column].player == self.matrix[1][column].player == self.matrix[2][column].player:
-        return self.matrix[0][column].player 
-    return None
+  def isPlayerVerticalWinner(self, player):
+    for column in zip(*self.matrix):
+      if player == self.getCommonElementInList(column):
+        return True 
+    return False
 
-  def checkEmptyPositions(self):
-    for row in range(self.dimension):
-      for column in range(self.dimension):
-        if self.matrix[row][column].player == None:
+  def checkIfDrawWon(self):
+    for row in self.matrix:
+      for column in row:
+        if not column.player:
           return None  
     return "Draw"
+
+  def getCommonElementInList(self, list):
+    first = list[0]
+    for item in list:
+      if first.player != item.player:
+        return None
+    return first.player
+
+  def getCommonElementInSecDiagonal(self):
+    first = self.matrix[0][0].player
+    for row in range(self.dimension):
+      for column in range(self.dimension):
+        if row == column and self.matrix[row][column].player != first:        
+          return None
+    return first
+
+  def getCommonElementInPrimDiagonal(self):
+    first = self.matrix[0][self.dimension-1].player
+    for row in range(self.dimension):
+      for column in range(self.dimension):
+        if row + column == self.dimension-1 and self.matrix[row][column].player != first:        
+          return None
+    return first

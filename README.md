@@ -42,5 +42,5 @@ Com mais tempo de desenvolvimento, algumas melhorias poderiam ser aplicadas para
 - extração das validações e checagens da rota ```movement``` para métodos separados; 
 - separação dos módulos em "blueprints"; 
 - melhoria nos testes automatizados com a inserção de testes de unidade; 
-- mudança na lógica do método ```checkWinner``` e dos métodos chamados por ele, de forma a diminuir as condições e retornos redundantes e generalizar os métodos para possíveis expansões (para tabuleiros maiores, por exemplo);
+- mudança na lógica do método ```checkIfPlayerWon``` e dos métodos chamados por ele, de forma a diminuir as condições e retornos redundantes e generalizar os métodos de comparação de elementos para que possam ser mais reaproveitáveis;
 - sobrecarga de operadores para indexar a matriz do tabuleiro de forma a tratar os índices como posições cartesianas ```xy```.
