@@ -47,7 +47,7 @@ class TestGame(unittest.TestCase):
     response = app.test_client().post('/game/'+str(self.game.id)+'/movement', json = {"player": "X","position": {"x": 1,"y": 0}})
     response = app.test_client().post('/game/'+str(self.game.id)+'/movement', json = {"player": "O","position": {"x": 0,"y": 0}})
     response = app.test_client().post('/game/'+str(self.game.id)+'/movement', json = {"player": "X","position": {"x": 2,"y": 0}})
-    assert b'{"msg":"Partida finalizada","winner":"Draw"}' in response.get_data()
+    assert b'{"status":"Partida finalizada","winner":"Draw"}' in response.get_data()
 
   def testReturnErrorTurn(self):      
     response = app.test_client().post('/game/'+str(self.game.id)+'/movement', json = {"player": self.game.firstPlayer,"position": {"x": 0,"y": 0}})

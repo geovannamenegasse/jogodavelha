@@ -28,7 +28,7 @@ def movement(id):
   currentGame.winner = currentGame.board.checkWinner()
 
   if currentGame.winner:
-    return { "msg" : "Partida finalizada", "winner" : currentGame.winner }
+    return { "status" if currentGame.winner == "Draw" else "msg" : "Partida finalizada", "winner" : currentGame.winner }
 
   currentGame.changeTheCurrentPlayer()
   return Response(status = 200)
