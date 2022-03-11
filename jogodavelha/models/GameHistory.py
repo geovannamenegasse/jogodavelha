@@ -6,9 +6,7 @@ class GameHistory():
     self.games.append(game)
 
   def getGameById(self, id):
-    currentGame = None
     for game in self.games:
-      if str(game.id) == id: 
-        currentGame = game
-        break
-    return currentGame
+      if game.id == id: 
+        return game
+    return None

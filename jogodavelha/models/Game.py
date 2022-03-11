@@ -4,7 +4,7 @@ from jogodavelha.models.Board import Board
 
 class Game():
   def __init__(self):
-    self.id            = uuid.uuid4()
+    self.id            = str(uuid.uuid4())
     self.firstPlayer   = random.choice(players)
     self.currentPlayer = self.firstPlayer
     self.winner        = None

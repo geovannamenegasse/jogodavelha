@@ -10,8 +10,8 @@ def game():
 
 @app.route("/game/<string:id>/movement", methods = ['POST'])
 def movement(id):
-  xCoordRead = request.json["position"]["x"]
-  yCoordRead = request.json["position"]["y"]
+  xCoordinateRead = request.json["position"]["x"]
+  yCoordinateRead = request.json["position"]["y"]
   playerRead = request.json["player"]
 
   currentGame = gameHistory.getGameById(id)
@@ -24,11 +24,11 @@ def movement(id):
   if not currentGame.checkCurrentPlayerTurn(playerRead):
     return { "msg" : "Não é turno do jogador" }
   
-  currentGame.board.makeTheMovementInBoard(xCoordRead, yCoordRead, playerRead)
+  currentGame.board.makeTheMovementInBoard(xCoordinateRead, yCoordinateRead, playerRead)
   currentGame.winner = currentGame.board.checkWinner()
 
   if currentGame.winner:
-    return { "status" if currentGame.winner == "Draw" else "msg" : "Partida finalizada", "winner" : currentGame.winner }
+    return { ("status" if currentGame.winner == "Draw" else "msg") : "Partida finalizada", "winner" : currentGame.winner }
 
   currentGame.changeTheCurrentPlayer()
   return Response(status = 200)
